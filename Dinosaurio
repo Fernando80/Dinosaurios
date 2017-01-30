@@ -1,0 +1,142 @@
+package dinosaurios;
+import java.util.Scanner;
+public class Dinosaurios {
+    public static void main(String[] args) {
+        Scanner z=new Scanner(System.in);
+        Datos obj=new Datos();
+        String op="";
+        int conta=0;
+        do{//ciclo por si se equivoca el wey
+        System.out.println("¿Que tipo de dinosaurio quiere crear?");
+        System.out.println("a)Herviboros  b)Carnivoros   c)Los dos");
+        System.out.print("Usted decea (Ingrese el inciso) -> ");
+        op=z.next();
+        try{
+            switch (op) {//opciones del menu anterior
+                case "a":
+                    obj.Hervi();
+                    System.out.print("Ingrese la clave del dinosaurio -> ");
+                    conta=z.nextInt();
+                    op=obj.Her(conta);//se manda al metodo her
+                    obj.Mensaje(op);
+                    conta=0;
+                    break;
+                case "b":
+                    obj.Car();
+                    System.out.print("Ingrese la clave del dinosaurio -> ");
+                    conta=z.nextInt();
+                    op=obj.Her(conta);
+                    obj.Mensaje(op);
+                    conta=0;
+                    break;
+                case "c":
+                    obj.Hervi();
+                    obj.Car();
+                    System.out.print("Ingrese la clave del dinosaurio -> ");
+                   conta=z.nextInt();
+                    op=obj.Her(conta);
+                    obj.Mensaje(op);
+                    conta=0;
+                    break;
+                default:
+                    System.out.println("vuelva a intentarlo");
+                    conta++;
+                    break;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }        
+        }while(conta>1);
+    }
+}
+
+package dinosaurios;
+import java.text.*;
+import java.util.Date;
+public class ActaDeNacimientos{
+
+    public void Acta(String nom,String din){
+        try{
+        Date hoy = new Date();
+        SimpleDateFormat hora = new SimpleDateFormat("dd-MM-yyyy "+" hh:mm:ss");
+        System.out.println("Nombre del dueño -> "+nom);
+        System.out.println("Nombre del animal -> "+din);
+        System.out.println("Fecha y hora de nacimiento -> "+hora.format(hoy));  
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+}
+
+package dinosaurios;
+import java.util.*;
+public class Datos {
+    Scanner z;
+        private String ja="", op="";
+        private int i=0;
+        //dinosaurios hervivoros
+	private String her[]={"Diplodocus","Gallimimus","Anquilosaurio","Parasaurolophus ","Braquiosaurio"};
+   //dinosaurios Carnivoros
+	private String car[]={"Bahariasaurus ingens","Tyrannosaurus rex","Saurophaganax maximus","Spinosaurus","Spinosaurus"};
+        ActaDeNacimientos obj=new ActaDeNacimientos();
+        
+    public Datos(){
+        z=new Scanner(System.in);
+    }
+    //menus
+    public void Hervi(){
+        System.out.println("clave|Dinosaurio herviboros");
+        System.out.println("  0  | Diplodocus");
+        System.out.println("  1  | Gallimimus");
+        System.out.println("  2  | Anquilosaurio");
+        System.out.println("  3  | Parasaurolophus");
+        System.out.println("  4  | Braquiosaurio");
+    }   
+    public void Car(){
+        System.out.println("clave|Dinosaurio Carnivoros");
+        System.out.println("  5  | Bahariasaurus ingens");
+        System.out.println("  6  | Tyrannosaurus rex");
+        System.out.println("  7  | Saurophaganax maximus");
+        System.out.println("  8  | Spinosaurus");
+        System.out.println("  9 | Carcharodontosaurus saharicus");
+    }
+
+    public String Her(int v) {//Busca el dinosaurio y lo retorna
+        String r="";
+        for(i=0;i<10;i++){
+            if(v>=0 && v<5){
+                if(i==v){
+                    r = her[i];
+                }
+            }
+            else{
+                if(i==v){
+                r = car[i];
+                }
+            }
+        }
+        return r;
+    }
+    public void Mensaje(String v) {//Adopcion
+        System.out.println("Genial!, ahora a nacido un "+v);
+        do{
+            i=0;
+            System.out.print("¿Lo quieres adoptar? (escribe si o no)-> ");
+            ja=z.nextLine();
+            if(ja.equals("Si")||ja.equals("si")||ja.equals("SI")){//adopcion
+                System.out.print("Genial!, por favor solo ingresa tu nombre completo -> ");
+                ja=z.nextLine();
+                System.out.print("¿Que nombre le quieres poner a tu "+v+"? -> ");
+                op=z.nextLine();
+                obj.Acta(ja, op);
+            }
+            else if(ja.equals("No")||ja.equals("no")||ja.equals("NO")){
+                System.out.print("Gracias por tu partisipacion!");
+            }
+            else{
+                System.out.print("¿Lo siento no entiendo tu respuesta intentalo de nuevo?");
+                i++;
+            }
+        }while(i>0);
+    }
+}    
